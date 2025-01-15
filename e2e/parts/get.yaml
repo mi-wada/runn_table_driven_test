@@ -1,0 +1,10 @@
+runners:
+  req: ${API_BASE_URL}
+steps:
+  - req:
+      /get?q={{ vars.q }}:
+        get:
+          body: null
+    test: |
+      steps[0].res.status == vars.want_status &&
+      steps[0].res.body.args == fromJSON(vars.want_body_args)

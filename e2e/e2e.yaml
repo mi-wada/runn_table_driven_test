@@ -1,0 +1,20 @@
+desc: GET /get
+steps:
+  - include:
+      path: ./parts/get.yaml
+      vars:
+        q: "hello"
+        want_status: 200
+        want_body_args: |
+          {
+            "q": "hello"
+          }
+  - include:
+      path: ./parts/get.yaml
+      vars:
+        q: "world"
+        want_status: 200
+        want_body_args: |
+          {
+            "q": "world"
+          }

@@ -1,0 +1,28 @@
+name: Run E2E tests
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install runn
+        env:
+          RUNN_VERSION: v0.127.1
+        run: |
+          RUNN_BIN_URL="https://github.com/k1LoW/runn/releases/download/${RUNN_VERSION}/runn_${RUNN_VERSION}_linux_amd64.tar.gz"
+          curl -sL -o runn.tar.gz "$RUNN_BIN_URL"
+          tar -xvf runn.tar.gz
+          sudo mv runn /usr/local/bin/
+      - run: |
+          runn run --verbose --env-file ./e2e/.env e2e/*.yaml

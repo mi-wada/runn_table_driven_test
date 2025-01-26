@@ -5,5 +5,5 @@ For <https://zenn.dev/mitsuaki/articles/runn-table-driven-test>.
 ## run
 
 ```shell
-runn run --verbose --env-file ./e2e/.env e2e/*.yaml
+runn run --verbose --env-file .env test.yaml
 ```

@@ -1,4 +1,4 @@
-name: Run E2E tests
+name: Run tests
 on:
   push:
     branches:
@@ -11,7 +11,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  e2e:
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -25,4 +25,4 @@ jobs:
           tar -xvf runn.tar.gz
           sudo mv runn /usr/local/bin/
       - run: |
-          runn run --verbose --env-file ./e2e/.env e2e/*.yaml
+          runn run --verbose --env-file .env test.yaml
